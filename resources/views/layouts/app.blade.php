@@ -22,6 +22,8 @@
 <body class="font-sans antialiased">
     <x-banner />
 
+    @yield('hero')
+
     @include('layouts.partials.header')
 
     <main class="container mx-auto px-5 flex flex-grow">
