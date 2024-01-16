@@ -1,6 +1,6 @@
 <div class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
-        <div>
+        <div class="text-gray-600">
             @if ($search)
                 Searching {{ $search }}
             @endif
