@@ -10,7 +10,7 @@
                 </div>
                 <div class="py-4">
                     @foreach ($posts as $post)
-                        <x-posts.post-item />
+                        <x-posts.post-item  :post="$post" />
                     @endforeach
                 </div>
             </div>
