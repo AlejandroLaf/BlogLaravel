@@ -19,6 +19,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 
 class PostResource extends Resource
@@ -71,7 +74,13 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                ImageColumn::make('image'),
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('slug')->sortable()->searchable(),
+                TextColumn::make('author.name')->sortable()->searchable(),
+                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
+                CheckboxColumn::make('featured'),
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
