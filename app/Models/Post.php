@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -51,5 +52,11 @@ class Post extends Model
         $mins = round(str_word_count($this->body) / 250);
 
         return ($mins < 1) ? 1 : $mins;
+    }
+
+    public function getThumbnailImage(){
+        $isUrl = str_contains($this->image, 'http');
+
+        return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
     }
 }
