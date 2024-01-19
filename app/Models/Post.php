@@ -40,7 +40,7 @@ class Post extends Model
         $query->where('published_at','<=',Carbon::now());
     }
 
-    public function scopeWithCategory($query){
+    public function scopeWithCategory($query, string $category){
         $query->whereHas('categories', function ($query) use ($category) {
             $query->where('slug', $category);
         });
@@ -60,7 +60,7 @@ class Post extends Model
         return ($mins < 1) ? 1 : $mins;
     }
 
-    public function getThumbnailImage(){
+    public function getThumbnailUrl(){
         $isUrl = str_contains($this->image, 'http');
 
         return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);

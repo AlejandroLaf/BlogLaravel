@@ -4,6 +4,12 @@
             @if ($search)
                 Searching {{ $search }}
             @endif
+            @if($this->activeCategory)
+            <x-badge wire:navigate href="{{ route('posts.index', ['category' => $category->title]) }}" :textColor="$category->text_color"
+                :bgColor="$category->bg_color">
+                {{ $this->activeCategory->title }}
+            </x-badge>
+            @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">
             <button class="{{ $sort === 'desc' ? 'text-gray-900 border-b border-gray-700' : 'text-gray-500' }}  py-4"
