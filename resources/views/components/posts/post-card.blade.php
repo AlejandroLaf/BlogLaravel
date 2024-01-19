@@ -10,7 +10,7 @@
         <div class="flex items-center mb-2 gap-x-2">
             @if ($category = $post->categories()->first())
                 <x-badge wire:click :textColor="$category->text_color" :bgColor="$category->bg_color">
-                    {{ $category->title }}
+                    {{ $category->slug }}
                 </x-badge>
             @endif
             <p class="text-gray-500 text-sm">{{ $post->published_at }}</p>

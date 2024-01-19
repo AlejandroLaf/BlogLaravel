@@ -31,6 +31,7 @@ class PostList extends Component
     public function updateSearch($search)
     {
         $this->search = $search;
+        $this->resetPage();
     }
 
     public function clearFilters(){
