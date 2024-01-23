@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class LikeButton extends Component
 {
-
-    #[Reactive]
     public Post $post;
 
     public function toggleLike()
