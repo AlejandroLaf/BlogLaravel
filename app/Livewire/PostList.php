@@ -12,19 +12,22 @@ use Livewire\WithPagination;
 
 class PostList extends Component
 {
-
     use WithPagination;
 
-    #[Url()]
+    #[Url]
     public $sort = 'desc';
-    #[Url()]
+    #[Url]
     public $search = '';
 
-    #[Url()]
+    #[Url]
     public $category = '';
 
-    public function setSort($sort){
-        $this->sort = ($sort === 'desc') ? 'desc' : 'asc';
+    #[Url]
+    public $popular = false;
+
+    public function setSort($sort)
+    {
+        $this->sort = $sort === 'desc' ? 'desc' : 'asc';
     }
 
     #[On('search')]
@@ -34,27 +37,33 @@ class PostList extends Component
         $this->resetPage();
     }
 
-    public function clearFilters(){
+    public function clearFilters()
+    {
         $this->search = '';
         $this->category = '';
         $this->resetPage();
     }
 
-    #[Computed()]
-    public function posts(){
+    #[Computed]
+    public function posts()
+    {
         return Post::published()
-        ->orderBy('published_at',$this->sort)
-        ->when($this->activeCategory,function ($query) {
-            $query->withCategory($this->category);
-        })
-        ->where('title','like',"%{$this->search}%")
-        ->paginate(3);
+
+            ->when($this->activeCategory, function ($query) {
+                $query->withCategory($this->category);
+            })
+            ->when($this->popular, function ($query) {
+                $query->popular();
+            })
+            ->search($this->search)
+            ->orderBy('published_at', $this->sort)
+            ->paginate(3);
     }
 
-    #[Computed()]
+    #[Computed]
     public function activeCategory()
     {
-        return Category::where('slug',$this->category)->first();
+        return Category::where('slug', $this->category)->first();
     }
 
     public function render()
